@@ -49,7 +49,7 @@ void parseScopFile(isl_ctx *ctx, const char *filename){
     //pet_scop_dump(scop);
     for (int i=0 ; i<scop->n_stmt ; ++i)
     {
-        //pet_tree_dump(scop->stmts[i]);
+        pet_tree_dump(scop->stmts[i]->body);
         ;
     }
 
@@ -57,4 +57,5 @@ void parseScopFile(isl_ctx *ctx, const char *filename){
     std::cout << scop_info.toString() << std::endl;
     scop_info.normalize();//TODO: refactor
     scop_info.print_code();
+    scop->context = NULL;
 }
