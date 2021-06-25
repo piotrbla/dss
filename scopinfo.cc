@@ -23,6 +23,29 @@ void ScopInfo::print_code()
 
 ScopInfo::ScopInfo(pet_scop* scop)
 {
+    domain = isl_union_set_empty(isl_set_get_space(scop->context));
+    pet = scop;
+    computeRelationUnion();
+    ctx = isl_union_set_get_ctx(domain);
+
+    for (int i = 0; i < pet->n_stmt; i++)
+    {
+        struct pet_stmt* statement = pet->stmts[i];
+        if (!pet_stmt_is_kill(statement))
+        {
+            isl_set* statement_domain = isl_set_copy(statement->domain);
+            if (statement->n_arg > 0)
+                statement_domain = isl_map_domain(isl_set_unwrap(statement_domain));
+            domain = isl_union_set_add_set(domain, statement_domain);
+        }
+        else
+        {
+            const char* statement_label = isl_set_get_tuple_name(statement->domain);
+            //schedule = remove_map_with_tuple(schedule, statement_label);
+            //relation = remove_map_with_tuple(relation, statement_label);
+        }
+    }
+    //schedule = simplify_schedule(schedule);//TODO: refactor to method
 }
 ScopInfo::~ScopInfo()
 {
