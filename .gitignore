@@ -29,3 +29,5 @@ dss
 *.out
 *.app
 *~
+.vscode/targets.log
+.vscode/dryrun.log
