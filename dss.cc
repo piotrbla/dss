@@ -4,6 +4,7 @@
 #include <iostream>
 #include "scopinfo.hh"
 #include "options.hh"
+#include "tester.hh"
 
 void parseScopFile(isl_ctx *ctx, const char *filename);
 
@@ -15,7 +16,7 @@ void logLine(std::string s)
 int main(int argc, char *argv[])
 {
     using std::cout;
-
+    make_tests(argc, argv);
     struct pet_options* pet_defaults = pet_options_new_with_defaults();
     isl_ctx* ctx = isl_ctx_alloc_with_options(&pet_options_args, pet_defaults);  
     //isl_ctx* ctx = isl_ctx_alloc();
