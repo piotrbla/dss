@@ -31,3 +31,4 @@ dss
 *~
 .vscode/targets.log
 .vscode/dryrun.log
+.vscode/settings.json
