@@ -1,6 +1,6 @@
 void LMKernel6_01_Base(int loop, int n, int *input_w, int **input_b)
 {
-  int* a;// = get_vector_copy(input_w, n);
+  int** a;// = get_vector_copy(input_w, n);
 #pragma scop
   
   int j, i;
