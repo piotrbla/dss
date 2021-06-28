@@ -22,8 +22,17 @@ int main(int argc, char *argv[])
     //isl_ctx* ctx = isl_ctx_alloc();
     pet_options_set_autodetect(ctx, 0);//TODO: find out why
     isl_options_set_ast_always_print_block(ctx, 1);
-    const char *filename = "file.c";
-    parseScopFile(ctx, filename);
+    char *filename = "file.c";
+    char *parsed_file;
+    if (argc>1)
+    {
+        parsed_file = argv[1];
+    }
+    else
+    {
+        parsed_file = filename;
+    }
+    parseScopFile(ctx, parsed_file);
     isl_ctx_free(ctx);//TODO: free/clear scop
     return 0;
 }
