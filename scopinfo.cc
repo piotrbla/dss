@@ -98,6 +98,7 @@ void ScopInfo::computeRelationUnion() {
     dep_write_after_read = isl_union_map_coalesce(dep_write_after_read);
     dep_write_after_write = isl_union_map_coalesce(dep_write_after_write);
     relation = dep_read_after_write;
+    //relation = dep_write_after_read;
     //    relation = isl_union_map_union(relation, dep_write_after_read);
     //   relation = isl_union_map_union(relation, dep_write_after_write);
     relation = isl_union_map_coalesce(relation);
