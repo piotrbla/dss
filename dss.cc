@@ -2,6 +2,7 @@
 #include <isl/options.h>
 #include <pet.h>
 #include <iostream>
+#include <string>
 #include "scopinfo.hh"
 #include "options.hh"
 #include "tester.hh"
@@ -22,8 +23,8 @@ int main(int argc, char *argv[])
     //isl_ctx* ctx = isl_ctx_alloc();
     pet_options_set_autodetect(ctx, 0);//TODO: find out why
     isl_options_set_ast_always_print_block(ctx, 1);
-    char *filename = "file.c";
-    char *parsed_file;
+    std::string filename ("file.c");
+    std::string parsed_file;
     if (argc>1)
     {
         parsed_file = argv[1];
@@ -32,14 +33,14 @@ int main(int argc, char *argv[])
     {
         parsed_file = filename;
     }
-    parseScopFile(ctx, parsed_file);
+    parseScopFile(ctx, parsed_file.c_str());
     isl_ctx_free(ctx);//TODO: free/clear scop
     return 0;
 }
 
-void parseScopFile(isl_ctx *ctx, const char *filename){
+void parseScopFile(isl_ctx *ctx, std::string filename){
     struct pet_scop* scop =
-      pet_scop_extract_from_C_source(ctx, filename, NULL);
+      pet_scop_extract_from_C_source(ctx, filename.c_str(), NULL);
 
     if (NULL == scop)
     {
