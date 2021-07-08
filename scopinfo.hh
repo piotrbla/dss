@@ -19,6 +19,7 @@ public:
     std::string toString();
     void normalize();
     void print_code ();
+    void put_info_to_output_files(std::string );
 private:
     isl_ctx* ctx;
     isl_union_set* domain;

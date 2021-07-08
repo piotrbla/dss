@@ -7,7 +7,7 @@
 #include "options.hh"
 #include "tester.hh"
 
-void parseScopFile(isl_ctx *ctx, const char *filename);
+void parseScopFile(isl_ctx *ctx, std::string filename);
 
 void logLine(std::string s)
 {
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     {
         parsed_file = filename;
     }
-    parseScopFile(ctx, parsed_file.c_str());
+    parseScopFile(ctx, parsed_file);
     isl_ctx_free(ctx);//TODO: free/clear scop
     return 0;
 }
@@ -64,6 +64,8 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
 
     ScopInfo scop_info(scop);
     std::cout << scop_info.toString() << std::endl;
+    //TODO: Put info to files
+    scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
     scop_info.print_code();
     //ctx->ref=0;

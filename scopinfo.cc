@@ -1,5 +1,6 @@
 #include "scopinfo.hh"
 #include "options.hh"
+#include "fileutil.hh"
 #include <sstream>
 #include <cstring>
 #include <iostream>
@@ -106,6 +107,15 @@ void ScopInfo::computeRelationUnion() {
 
     isl_union_map_free(empty);
     //relation = unwrap_range(relation);
+}
+
+void ScopInfo::put_info_to_output_files(std::string filename)
+{
+    std::string dir_name = dir_name_of(filename);
+    if(dir_name == "")
+        dir_name.append(".");
+    dir_name.append("/output/");
+    create_dir(dir_name);
 }
 
 void ScopInfo::normalize()
