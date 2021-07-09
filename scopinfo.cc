@@ -11,6 +11,8 @@
 #include <isl/set.h>
 #include <isl/union_map.h>
 #include <isl/union_set.h>
+#include "fileutil.hh"
+
 
 void ScopInfo::print_code_tc()
 {
@@ -116,7 +118,15 @@ void ScopInfo::put_info_to_output_files(std::string filename)
         dir_name.append(".");
     dir_name.append("/output/");
     create_dir(dir_name);
-}
+    std::string base_name = remove_extension(base_file_name(filename));
+    std::string base_output_path = dir_name + base_name;
+    write_string_to_file(base_output_path + ".domain", "Domain", isl_union_set_to_str(domain));
+    write_string_to_file(base_output_path + ".schedule", "Schedule", isl_union_map_to_str(schedule));
+    write_string_to_file(base_output_path + ".relation", "Relation", isl_union_map_to_str(relation));
+    write_string_to_file(base_output_path + ".reads", "Reads", isl_union_map_to_str(reads));
+    write_string_to_file(base_output_path + ".writes", "Writes", isl_union_map_to_str(writes));
+ }
+    
 
 void ScopInfo::normalize()
 {
