@@ -71,15 +71,14 @@ std::string ScopInfo::toString()
     s << "Writes: " << isl_union_map_to_str(writes) << std::endl;
     return s.str();
 }
-void computeFlow(
+isl_union_map *computeFlow(
         __isl_keep isl_union_map* r1, __isl_keep isl_union_map* r2,
-        __isl_keep isl_union_map* r3, __isl_keep isl_union_map* r4,
-        __isl_keep isl_union_map **computed_rel)
+        __isl_keep isl_union_map* before)
 {
-    isl_union_map_compute_flow(isl_union_map_copy(r1), isl_union_map_copy(r2),
-        isl_union_map_copy(r3), isl_union_map_copy(r4),
-        NULL, computed_rel, NULL, NULL);
-
+    return isl_union_map_coalesce(isl_union_map_intersect(
+					isl_union_map_apply_range(isl_union_map_copy(r1),
+                    isl_union_map_reverse(isl_union_map_copy(r2))),
+					isl_union_map_copy(before)));
 }
 
 void ScopInfo::computeRelationUnion() {
@@ -92,21 +91,17 @@ void ScopInfo::computeRelationUnion() {
     isl_union_map *dep_read_after_write;
     isl_union_map *dep_write_after_read;
     isl_union_map *dep_write_after_write;
+	isl_union_map * before = isl_union_map_lex_lt_union_map(isl_union_map_copy(schedule), isl_union_map_copy(schedule));
 
-    computeFlow(reads, empty, writes, schedule, &dep_read_after_write);
-    computeFlow(writes, empty, reads, schedule, &dep_write_after_read);
-    computeFlow(writes, empty, writes, schedule, &dep_write_after_write);
-
-    dep_read_after_write = isl_union_map_coalesce(dep_read_after_write);
-    dep_write_after_read = isl_union_map_coalesce(dep_write_after_read);
-    dep_write_after_write = isl_union_map_coalesce(dep_write_after_write);
+    dep_read_after_write = computeFlow(writes, reads, before);
+    dep_write_after_read = computeFlow(reads, writes, before);
+    dep_write_after_write = computeFlow(writes, writes, before);
     relation = dep_read_after_write;
     //relation = dep_write_after_read;
     //    relation = isl_union_map_union(relation, dep_write_after_read);
     //   relation = isl_union_map_union(relation, dep_write_after_write);
     relation = isl_union_map_coalesce(relation);
     
-
     isl_union_map_free(empty);
     //relation = unwrap_range(relation);
 }
