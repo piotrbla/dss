@@ -33,3 +33,4 @@ dss
 .vscode/dryrun.log
 .vscode/settings.json
 output/*
+tests/output/*
