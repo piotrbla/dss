@@ -1,0 +1,21 @@
+#S := [n] -> { [i,j] : 1 <= i <= n and 1 <= j <= i };
+#codegen ({[i,j] -> [i,j]} *S);
+#codegen ({[i,j] -> [j,i]} *S);
+
+D1:=[loop, n] -> { S_9[l] : 0 < l <= loop; 
+S_5[l, i] : 0 < l <= loop and 0 < i < n;
+S_6[l, i, k] : 0 < l <= loop and i < n and 0 <= k < i;
+S_7[l, i, k] : 0 < l <= loop and i < n and 0 <= k < i;
+S_4[l] : 0 < l <= loop;
+S_3[];
+S_8[l, i] : 0 < l <= loop and 0 < i < n};
+SCHED1:=[loop, n] -> { S_9[l] -> [t]: t=max(2l);
+S_5[l, i] -> [t]: t=max(2l+i, 2l+i);
+S_6[l, i, k] -> [t]: t=max(2l+i, 2l+i);
+S_7[l, i, k] -> [t]: t=max(2l+i, 2l+i);
+S_4[l] -> [t]: t=max(2l);
+S_8[l, i] -> [t]: t=max(2l+i, 2l+i)
+}*D1;
+codegen(SCHED1);
+print SCHED1;
+

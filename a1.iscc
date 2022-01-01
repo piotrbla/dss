@@ -1,0 +1,5 @@
+D:=[n] -> {s[i,j]: 1<=i, j<=n};
+D;
+SCHED := [n]->{s[i,j]->[t]:t=max(2i+j, 2i+j)}*D;
+SCHED;
+codegen SCHED;

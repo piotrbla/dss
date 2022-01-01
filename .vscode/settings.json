@@ -24,6 +24,39 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
-    }
+        "typeinfo": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "array": "cpp",
+        "atomic": "cpp",
+        "bit": "cpp",
+        "cstddef": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "random": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "fstream": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/piotr/dss",
+            "binaryPath": "/home/piotr/dss/dss",
+            "binaryArgs": []
+        }
+    ],
+    "files.exclude": {
+        "**/*.o": true
+    },
+    "files.autoSave": "afterDelay",
+    "search.mode": "reuseEditor",
+    "editor.wordWrap": "on"
 }

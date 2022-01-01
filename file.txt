@@ -1,0 +1,10 @@
+SCoP found in file: file.c
+ Statement count: 12
+Statements bodies: 
+SCoPInfo: 
+Domain: [loop, n] -> { S_9[l] : 0 < l <= loop; S_5[l, i] : 0 < l <= loop and 0 < i < n; S_6[l, i, k] : 0 < l <= loop and i < n and 0 <= k < i; S_4[l] : 0 < l <= loop; S_7[l, i, k] : 0 < l <= loop and i < n and 0 <= k < i; S_3[]; S_8[l, i] : 0 < l <= loop and 0 < i < n }
+Schedule: [loop, n] -> { S_9[l] -> [4, l, 2, 0, 0, 0, 0]; S_7[l, i, k] -> [4, l, 1, i, 1, k, 1]; S_2[] -> [2, 0, 0, 0, 0, 0, 0]; S_6[l, i, k] -> [4, l, 1, i, 1, k, 0]; S_8[l, i] -> [4, l, 1, i, 2, 0, 0]; S_3[] -> [3, 0, 0, 0, 0, 0, 0]; S_10[] -> [5, 0, 0, 0, 0, 0, 0]; S_5[l, i] -> [4, l, 1, i, 0, 0, 0]; S_4[l] -> [4, l, 0, 0, 0, 0, 0]; S_0[] -> [0, 0, 0, 0, 0, 0, 0]; S_1[] -> [1, 0, 0, 0, 0, 0, 0]; S_11[] -> [5, 1, 0, 0, 0, 0, 0] }
+Relation: [loop, n] -> { S_6[l, i, k] -> S_6[l', i' = i, k'] : l > 0 and i < n and 0 <= k < i and l < l' <= loop and 0 <= k' < i; S_6[l, i, k] -> S_6[l', i', k' = -1 - i + i'] : l > 0 and 0 <= k < i and l <= l' <= loop and i < i' < n; S_6[l, i, k] -> S_6[l' = l, i' = i, k'] : 0 < l <= loop and i < n and k >= 0 and k < k' < i }
+Reads:  [loop, n] -> { S_6[l, i, k] -> b[k, i] : 0 < l <= loop and 0 <= i < n and 0 <= k < i; S_6[l, i, k] -> w[i] : 0 < l <= loop and 0 <= i < n and 0 <= k < i; S_6[l, i, k] -> w[-1 + i - k] : 0 < l <= loop and i < n and 0 <= k < i }
+Writes: [loop, n] -> { S_5[l, i] -> k[] : 0 < l <= loop and 0 < i < n; S_4[l] -> i[] : 0 < l <= loop; S_8[l, i] -> i[] : 0 < l <= loop and 0 < i < n; S_6[l, i, k] -> w[i] : 0 < l <= loop and 0 <= i < n and 0 <= k < i; S_9[l] -> l[] : 0 < l <= loop; S_7[l, i, k] -> k[] : 0 < l <= loop and i < n and 0 <= k < i; S_3[] -> l[] }
+

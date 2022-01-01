@@ -58,7 +58,7 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
     //pet_scop_dump(scop);
     for (int i=0 ; i<scop->n_stmt ; ++i)
     {
-        //pet_tree_dump(scop->stmts[i]->body);
+        pet_tree_dump(scop->stmts[i]->body);
         ;
     }
 
