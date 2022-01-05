@@ -5,7 +5,7 @@ OBJS=$(SRCS:.cc=.o)
 all:	dss
 
 dss:	$(OBJS)
-	$(CXX) $(COPT) -O3 -o dss $(OBJS) -L/usr/local/lib -L/usr/local/lib -lisl -lpet
+	$(CXX) $(COPT) -o dss $(OBJS) -L/usr/local/lib -L/usr/local/lib -lisl -lpet
 
 %.o:	%.cc
 	$(CXX) $(COPT) -c  $<
