@@ -23,23 +23,30 @@ void ScopInfo::print_code_tc()
  void ScopInfo::print_test_schedule()
  {
     isl_schedule * sched = isl_schedule_read_from_str(ctx, "{ domain: \"{ S_3[i] : 0 <= i <= 9; S_0[]; S_2[i] : 0 <= i <= 9; S_4[];  S_1[i] : 0 <= i <= 9 }\", child: { sequence: [ { filter: \"{ S_0[] }\" }, { filter:  \"{ S_3[i]; S_2[i]; S_1[i] }\", child: { schedule: \"L_0[{ S_2[i] -> [(i)]; S_3[i] -> [(i)]; S_1[i] -> [(i)] }]\", child: { sequence: [ { filter: \"{ S_1[i] }\" }, {  filter: \"{ S_2[i] }\" }, { filter: \"{ S_3[i] }\" } ] } } }, { filter: \"{ S_4[] }\"  } ] } }");
-    //"[l, i, k] -> [(l, t = i - k)] }");
-    std::cout <<  isl_schedule_to_str(sched);
+    std::cout <<  isl_schedule_to_str(sched) << "\n";
  }
 
- void ScopInfo::print_test_basic_set()
+ void ScopInfo::print_test_union_set()
  {
-     ;
+     isl_union_set * s = isl_union_set_read_from_str(ctx, "{ B [0]; A[2 ,8 ,1] }");
+     std::cout << isl_union_set_to_str(s)<< "\n";
  }
  
  void ScopInfo::print_test_union_map()
  {
-     ;
- }
+     isl_union_map * m1 = isl_union_map_read_from_str(ctx, "{A[2, 8, 1] -> B[5]; A[2, 8, 1] -> B[6]; B[5] -> B[5] }");
+      std::cout << isl_union_map_to_str(m1)<< "\n";
+     isl_union_map * m2 = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, i, k]}");
+     std::cout << isl_union_map_to_str(m2)<< "\n";
+     isl_union_map * m3 = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, t=i - k]}");
+     std::cout << isl_union_map_to_str(m3)<< "\n";
+}
 
 void ScopInfo::print_code()
 {
     print_test_schedule();
+    print_test_union_set();
+    print_test_union_map();
 }
 
 

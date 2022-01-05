@@ -32,7 +32,7 @@ private:
     void computeRelationUnion();
     void print_code_tc();
     void print_test_schedule();
-    void print_test_basic_set();
+    void print_test_union_set();
     void print_test_union_map();
 };
 

@@ -58,12 +58,12 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
     //pet_scop_dump(scop);
     for (int i=0 ; i<scop->n_stmt ; ++i)
     {
-        pet_tree_dump(scop->stmts[i]->body);
+        //pet_tree_dump(scop->stmts[i]->body);
         ;
     }
 
     ScopInfo scop_info(scop);
-    std::cout << scop_info.toString() << std::endl;
+    //std::cout << scop_info.toString() << std::endl;
     //TODO: Put info to files
     scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
