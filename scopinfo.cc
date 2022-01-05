@@ -11,6 +11,8 @@
 #include <isl/set.h>
 #include <isl/union_map.h>
 #include <isl/union_set.h>
+#include <isl/schedule.h>
+
 #include "fileutil.hh"
 
 
@@ -18,9 +20,26 @@ void ScopInfo::print_code_tc()
 {
     ;
 }
+ void ScopInfo::print_test_schedule()
+ {
+    isl_schedule * sched = isl_schedule_read_from_str(ctx, "{ domain: \"{ S_3[i] : 0 <= i <= 9; S_0[]; S_2[i] : 0 <= i <= 9; S_4[];  S_1[i] : 0 <= i <= 9 }\", child: { sequence: [ { filter: \"{ S_0[] }\" }, { filter:  \"{ S_3[i]; S_2[i]; S_1[i] }\", child: { schedule: \"L_0[{ S_2[i] -> [(i)]; S_3[i] -> [(i)]; S_1[i] -> [(i)] }]\", child: { sequence: [ { filter: \"{ S_1[i] }\" }, {  filter: \"{ S_2[i] }\" }, { filter: \"{ S_3[i] }\" } ] } } }, { filter: \"{ S_4[] }\"  } ] } }");
+    //"[l, i, k] -> [(l, t = i - k)] }");
+    std::cout <<  isl_schedule_to_str(sched);
+ }
+
+ void ScopInfo::print_test_basic_set()
+ {
+     ;
+ }
+ 
+ void ScopInfo::print_test_union_map()
+ {
+     ;
+ }
+
 void ScopInfo::print_code()
 {
-    ;
+    print_test_schedule();
 }
 
 
