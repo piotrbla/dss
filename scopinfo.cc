@@ -64,11 +64,12 @@ void ScopInfo::print_code()
         //fclose(mapFile);
         isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, t=i - k]}");
         loop_scop_from_pet_debug_printf(loopScop);
-
+        std::cout << "Schedule before: " << isl_union_map_to_str(new_schedule)<< "\n";
         new_schedule = isl_union_map_intersect_domain(new_schedule, isl_union_set_copy(loopScop->loopDomain));
-
+        std::cout << "Schedule  after: " << isl_union_map_to_str(new_schedule)<< "\n";
+        std::cout << "Domain: " << isl_union_set_to_str(loopScop->loopDomain)<< "\n";
         isl_debug_printf("\n#%s\n", "######################################################################");
-        isl_debug_printf_union_map("\n#shcedule code: %s\n", new_schedule);
+        isl_debug_printf_union_map("\n#schedule code: %s\n", new_schedule);
         isl_debug_printf("\n#%s\n", "######################################################################");
 
         loop_scop_check_schedule_respects_deps(loopScop, new_schedule);
@@ -76,7 +77,7 @@ void ScopInfo::print_code()
         if (daptParams.dapt_respects_deps == isl_bool_false)//TODO: change
         {
             isl_printf_str("\n//dapt code:\n%s", codegen_macros_to_str(new_schedule, petScop));
-            isl_printf_str("%s", codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_true));
+            isl_printf_str("%s", codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_false));
         }
         else
         {

@@ -100,7 +100,7 @@ char* str_concatenation(char* toExp, const char* toAdd){
 	return dest;
 }
 
-char* get_param_value(char* paramName, int argc, char *argv[]){
+char* get_param_value(const char* paramName, int argc, char *argv[]){
 	char* paramValue = 0;
 	int i;
 
@@ -114,7 +114,7 @@ char* get_param_value(char* paramName, int argc, char *argv[]){
 	return paramValue;
 }
 
-int is_param_set(char* paramName, int argc, char *argv[]){
+int is_param_set(const char* paramName, int argc, char *argv[]){
 	int paramValue = 0;
 	int i;
 

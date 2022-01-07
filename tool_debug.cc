@@ -7,7 +7,7 @@
 
 #include "tool_debug.hh"
 
-static int print_debug_info = 0;
+static int print_debug_info = 1;
 
 void isl_debug_on(){
 	print_debug_info = -1;
