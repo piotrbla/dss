@@ -1,6 +1,11 @@
 #include "scopinfo.hh"
+#include "codegen.hh"
 #include "options.hh"
 #include "fileutil.hh"
+#include "loop_scop.hh"
+#include "dapt_params.hh"
+#include "tool_isl.hh"
+#include "tool_debug.hh"
 #include <sstream>
 #include <cstring>
 #include <iostream>
@@ -44,13 +49,46 @@ void ScopInfo::print_code_tc()
 
 void ScopInfo::print_code()
 {
-    print_test_schedule();
-    print_test_union_set();
-    print_test_union_map();
+    //print_test_schedule();
+    //print_test_union_set();
+    //print_test_union_map();
+    dapt_params daptParams;
+    pet_options_set_signed_overflow(ctx, PET_OVERFLOW_IGNORE);
+    isl_options_set_ast_iterator_type(ctx, daptParams.iteratortype);
+    pet_scop *petScop = pet;
+    if(petScop != 0)
+    {
+        loop_scop *loopScop = loop_scop_extract_from_pet_scop(petScop, &daptParams);
+        // FILE *mapFile = fopen(daptParams.mapfile,"rt");
+        //isl_union_map *schedule = isl_union_map_read_from_file(ctx, mapFile);
+        //fclose(mapFile);
+        isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, t=i - k]}");
+        loop_scop_from_pet_debug_printf(loopScop);
+
+        new_schedule = isl_union_map_intersect_domain(new_schedule, isl_union_set_copy(loopScop->loopDomain));
+
+        isl_debug_printf("\n#%s\n", "######################################################################");
+        isl_debug_printf_union_map("\n#shcedule code: %s\n", new_schedule);
+        isl_debug_printf("\n#%s\n", "######################################################################");
+
+        loop_scop_check_schedule_respects_deps(loopScop, new_schedule);
+
+        if (daptParams.dapt_respects_deps == isl_bool_false)//TODO: change
+        {
+            isl_printf_str("\n//dapt code:\n%s", codegen_macros_to_str(new_schedule, petScop));
+            isl_printf_str("%s", codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_true));
+        }
+        else
+        {
+            std::cout<< "Error\n"; 
+            //isl_printf_str("\n//dapt code:\n%s", "//Error: see debug info");
+        }
+        loopScop = loop_scop_loop_scop_free(loopScop);
+        new_schedule = isl_union_map_free(new_schedule);
+    }
 }
 
-
-ScopInfo::ScopInfo(pet_scop* scop)
+ScopInfo::ScopInfo(pet_scop *scop)
 {
     domain = isl_union_set_empty(isl_set_get_space(scop->context));
     pet = scop;
@@ -59,7 +97,7 @@ ScopInfo::ScopInfo(pet_scop* scop)
 
     for (int i = 0; i < pet->n_stmt; i++)
     {
-        struct pet_stmt* statement = pet->stmts[i];
+        struct pet_stmt *statement = pet->stmts[i];
         if (!pet_stmt_is_kill(statement))
         {
             isl_set* statement_domain = isl_set_copy(statement->domain);
