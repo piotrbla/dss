@@ -45,6 +45,8 @@ void ScopInfo::print_code_tc()
      std::cout << isl_union_map_to_str(m2)<< "\n";
      isl_union_map * m3 = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, t=i - k]}");
      std::cout << isl_union_map_to_str(m3)<< "\n";
+     isl_union_map * m4 = isl_union_map_read_from_str(ctx, "{S_0[l, i, k]->S_0[l, t=i - k]}");
+     std::cout << isl_union_map_to_str(m4)<< "\n";
 }
 
 void ScopInfo::print_code()
@@ -62,7 +64,7 @@ void ScopInfo::print_code()
         // FILE *mapFile = fopen(daptParams.mapfile,"rt");
         //isl_union_map *schedule = isl_union_map_read_from_file(ctx, mapFile);
         //fclose(mapFile);
-        isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{[l, i, k]->[l, t=i - k]}");
+        isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{S_0[l, i, k]->S_0[l, t=i - k]}");
         loop_scop_from_pet_debug_printf(loopScop);
         std::cout << "Schedule before: " << isl_union_map_to_str(new_schedule)<< "\n";
         new_schedule = isl_union_map_intersect_domain(new_schedule, isl_union_set_copy(loopScop->loopDomain));
