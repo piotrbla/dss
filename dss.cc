@@ -67,7 +67,9 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
     //TODO: Put info to files
     scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
-    scop_info.print_code();
+    //TODO: loop over schedules file
+    //scop_info.print_code("{S_0[l, i, k]->S_0[l, t=i - k]}");
+    scop_info.print_code("{S_0[j, i, k]->S_0[t=max(k-i+1, j-k+1), j, i, k]}");
     //ctx->ref=0;
     scop->context = NULL;
 }

@@ -18,7 +18,7 @@ public:
     ~ScopInfo();
     std::string toString();
     void normalize();
-    void print_code ();
+    void print_code (std::string);
     void put_info_to_output_files(std::string );
 private:
     isl_ctx* ctx;

@@ -8,6 +8,7 @@
 #include "tool_debug.hh"
 #include <sstream>
 #include <cstring>
+#include <string>
 #include <iostream>
 #include <isl/flow.h>
 #include <isl/set.h>
@@ -49,7 +50,7 @@ void ScopInfo::print_code_tc()
      std::cout << isl_union_map_to_str(m4)<< "\n";
 }
 
-void ScopInfo::print_code()
+void ScopInfo::print_code(std::string schedule_string)
 {
     //print_test_schedule();
     //print_test_union_set();
@@ -64,7 +65,8 @@ void ScopInfo::print_code()
         // FILE *mapFile = fopen(daptParams.mapfile,"rt");
         //isl_union_map *schedule = isl_union_map_read_from_file(ctx, mapFile);
         //fclose(mapFile);
-        isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{S_0[l, i, k]->S_0[l, t=i - k]}");
+        //isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{S_0[l, i, k]->S_0[l, t=i - k]}");
+        isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, schedule_string.c_str());
         loop_scop_from_pet_debug_printf(loopScop);
         std::cout << "Schedule before: " << isl_union_map_to_str(new_schedule)<< "\n";
         new_schedule = isl_union_map_intersect_domain(new_schedule, isl_union_set_copy(loopScop->loopDomain));
