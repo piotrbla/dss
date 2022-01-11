@@ -66,12 +66,9 @@ void ScopInfo::print_code(std::string schedule_string)
         loop_scop_from_pet_debug_printf(loopScop);
         std::cout << "Schedule before: " << isl_union_map_to_str(new_schedule)<< "\n";
         new_schedule = isl_union_map_intersect_domain(new_schedule, isl_union_set_copy(loopScop->loopDomain));
-        std::cout << "Schedule  after: " << isl_union_map_to_str(new_schedule)<< "\n";
+        std::cout << "Schedule * LDom: " << isl_union_map_to_str(new_schedule)<< "\n";
         std::cout << "Domain: " << isl_union_set_to_str(loopScop->loopDomain)<< "\n";
-        isl_debug_printf("\n#%s\n", "######################################################################");
         isl_debug_printf_union_map("\n#schedule code: %s\n", new_schedule);
-        isl_debug_printf("\n#%s\n", "######################################################################");
-
         loop_scop_check_schedule_respects_deps(loopScop, new_schedule);
 
         if (daptParams.dapt_respects_deps == isl_bool_false)//TODO: change
