@@ -80,13 +80,9 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
 
     ScopInfo scop_info(scop);
     //std::cout << scop_info.toString() << std::endl;
-    //TODO: Put info to files
     scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
     generateCodeForSchedule(scop_info, filename);  
-    /////scop_info.print_code("{S_0[l, i, k]->S_0[l, t=i - k]}");
-    //scop_info.print_code("{S_0[i, j, k]->S_0[t=max(k-i+1, j-k+1), i, j, k]}");
-    /////scop_info.print_code("{S_0[j, i, k]->S_0[t=max(2k-i, 2k-j+1), j, i, k]}");
     //ctx->ref=0;
     scop->context = NULL;
 }
