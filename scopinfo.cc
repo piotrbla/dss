@@ -126,7 +126,7 @@ ScopInfo::~ScopInfo()
     //isl_union_map_free(schedule);
     //isl_union_map_free(relation);
     isl_union_set_free(domain);
-    pet_scop_free(pet);
+    //pet_scop_free(pet);
 }
 std::string ScopInfo::toString()
 {
