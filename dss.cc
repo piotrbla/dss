@@ -2,6 +2,7 @@
 #include <isl/options.h>
 #include <pet.h>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include "scopinfo.hh"
 #include "options.hh"
@@ -38,6 +39,21 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+void generateCodeForSchedule(ScopInfo scop_info, std::string filename )
+{
+  std::string schedule_filename = filename + ".sched";
+  std::ifstream f(schedule_filename);
+  std::string line;
+  if (f.is_open())
+  {
+    while ( getline (f,line) )
+    {
+      std::cout<< line << "\n";
+      scop_info.print_code(line);
+    }
+    f.close();
+  }
+}
 void parseScopFile(isl_ctx *ctx, std::string filename){
     struct pet_scop* scop =
       pet_scop_extract_from_C_source(ctx, filename.c_str(), NULL);
@@ -67,9 +83,10 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
     //TODO: Put info to files
     scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
-    //TODO: loop over schedules file
-    //scop_info.print_code("{S_0[l, i, k]->S_0[l, t=i - k]}");
-    scop_info.print_code("{S_0[j, i, k]->S_0[t=max(k-i+1, j-k+1), j, i, k]}");
+    generateCodeForSchedule(scop_info, filename);  
+    /////scop_info.print_code("{S_0[l, i, k]->S_0[l, t=i - k]}");
+    //scop_info.print_code("{S_0[i, j, k]->S_0[t=max(k-i+1, j-k+1), i, j, k]}");
+    /////scop_info.print_code("{S_0[j, i, k]->S_0[t=max(2k-i, 2k-j+1), j, i, k]}");
     //ctx->ref=0;
     scop->context = NULL;
 }
