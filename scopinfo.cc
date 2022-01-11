@@ -62,10 +62,6 @@ void ScopInfo::print_code(std::string schedule_string)
     if(petScop != 0)
     {
         loop_scop *loopScop = loop_scop_extract_from_pet_scop(petScop, &daptParams);
-        // FILE *mapFile = fopen(daptParams.mapfile,"rt");
-        //isl_union_map *schedule = isl_union_map_read_from_file(ctx, mapFile);
-        //fclose(mapFile);
-        //isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, "{S_0[l, i, k]->S_0[l, t=i - k]}");
         isl_union_map * new_schedule = isl_union_map_read_from_str(ctx, schedule_string.c_str());
         loop_scop_from_pet_debug_printf(loopScop);
         std::cout << "Schedule before: " << isl_union_map_to_str(new_schedule)<< "\n";
