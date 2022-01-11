@@ -73,7 +73,7 @@ void ScopInfo::print_code(std::string schedule_string)
 
         if (daptParams.dapt_respects_deps == isl_bool_false)//TODO: change
         {
-            isl_printf_str("\n//dapt code:\n%s", codegen_macros_to_str(new_schedule, petScop));
+            isl_printf_str("\n//modified code:%s", codegen_macros_to_str(new_schedule, petScop));
             isl_printf_str("%s", codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_false));
         }
         else
