@@ -37,7 +37,7 @@ void ScopInfo::print_code_tc()
      isl_union_set * s = isl_union_set_read_from_str(ctx, "{ B [0]; A[2 ,8 ,1] }");
      std::cout << isl_union_set_to_str(s)<< "\n";
  }
- 
+
  void ScopInfo::print_test_union_map()
  {
      isl_union_map * m1 = isl_union_map_read_from_str(ctx, "{A[2, 8, 1] -> B[5]; A[2, 8, 1] -> B[6]; B[5] -> B[5] }");
@@ -57,7 +57,7 @@ void ScopInfo::print_code(std::string schedule_string)
     //print_test_union_map();
     dapt_params daptParams;
     pet_options_set_signed_overflow(ctx, PET_OVERFLOW_IGNORE);
-    isl_options_set_ast_iterator_type(ctx, daptParams.iteratortype);
+    isl_options_set_ast_iterator_type(ctx, "int");
     pet_scop *petScop = pet;
     if(petScop != 0)
     {
@@ -78,7 +78,7 @@ void ScopInfo::print_code(std::string schedule_string)
         }
         else
         {
-            std::cout<< "Error\n"; 
+            std::cout<< "Error\n";
             //isl_printf_str("\n//dapt code:\n%s", "//Error: see debug info");
         }
         loopScop = loop_scop_loop_scop_free(loopScop);
@@ -163,7 +163,7 @@ void ScopInfo::computeRelationUnion() {
     //    relation = isl_union_map_union(relation, dep_write_after_read);
     //   relation = isl_union_map_union(relation, dep_write_after_write);
     relation = isl_union_map_coalesce(relation);
-    
+
     isl_union_map_free(empty);
     //relation = unwrap_range(relation);
 }
@@ -183,7 +183,7 @@ void ScopInfo::put_info_to_output_files(std::string filename)
     write_string_to_file(base_output_path + ".reads", "Reads", isl_union_map_to_str(reads));
     write_string_to_file(base_output_path + ".writes", "Writes", isl_union_map_to_str(writes));
  }
-    
+
 
 void ScopInfo::normalize()
 {
