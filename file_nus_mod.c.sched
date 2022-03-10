@@ -1,0 +1,1 @@
+{S_0[i, j, k]->S_0[t=max(k-1, j-k-1)+1, i, j, k];S_1[i,j,k]->S_1[t=max(k-1, j-k-1)+1, i, j, k]}

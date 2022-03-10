@@ -187,9 +187,9 @@ int main(void) {
   //{
   N += 10;
   computeDYN1Imperfect(graph, N, seq);
-  computeDYN2Perfect(graph, N, seq);
-  computeDYN3ImperfA(graph, N, seq);
-  computeDYN4ImperfB(graph, N, seq);
+//  computeDYN2Perfect(graph, N, seq);
+//  computeDYN3ImperfA(graph, N, seq);
+//  computeDYN4ImperfB(graph, N, seq);
   //N += 10;
 //}
   deallocateMatrix(graph, ZMAX);

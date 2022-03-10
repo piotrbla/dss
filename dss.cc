@@ -44,6 +44,7 @@ void generateCodeForSchedule(ScopInfo scop_info, std::string filename )
   std::string schedule_filename = filename + ".sched";
   std::ifstream f(schedule_filename);
   std::string line;
+  std::cout<< schedule_filename << "\n";
   if (f.is_open())
   {
     while ( getline (f,line) )
@@ -79,9 +80,12 @@ void parseScopFile(isl_ctx *ctx, std::string filename){
     }
 
     ScopInfo scop_info(scop);
-    //std::cout << scop_info.toString() << std::endl;
+    std::cout << scop_info.toString() << std::endl;
     scop_info.put_info_to_output_files(filename);
     scop_info.normalize();//TODO: refactor
+    std::cout<< filename << '\n';
+    std::cout << "Tests1\n";
+    
     generateCodeForSchedule(scop_info, filename);  
     //ctx->ref=0;
     scop->context = NULL;
