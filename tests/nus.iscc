@@ -1,0 +1,11 @@
+D:=[n] -> { S_1[i, j] : i >= 0 and i < j < n; S_0[i, j, k] : i >= 0 and j < n and i <= k < j };
+print "D";
+D;
+#schedule map:
+GSH:=[n] -> { S_1[i, j] -> [-i, j, 1, 0]; S_0[i, j, k] -> [-i, j, 0, k] };
+print "Global schedule";
+GSH;
+
+CODE2:=[n] -> {   S_0[i,j,k]->  [t=max(k-i, j-k-1)+1 ,-i,j,0,k]: t<= j-i;  
+S_1[i,j]->[t,-i, j, 1, 0] : exists k: (t=max(k-i, j-k-1)+1 and    t= j-i) }*D;
+codegen (CODE2);
