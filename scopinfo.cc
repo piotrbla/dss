@@ -186,6 +186,8 @@ void ScopInfo::put_info_to_output_files(std::string filename)
     write_string_to_file(base_output_path + ".relation", "Relation", isl_union_map_to_str(relation));
     write_string_to_file(base_output_path + ".reads", "Reads", isl_union_map_to_str(reads));
     write_string_to_file(base_output_path + ".writes", "Writes", isl_union_map_to_str(writes));
+    write_string_to_file(base_output_path + ".macros.c", "macros", macros_str);
+    write_string_to_file(base_output_path + ".dss.c", "Code", wavefront_str);
  }
 
 
