@@ -28,6 +28,8 @@ private:
     isl_union_map* reads;
     isl_union_map* writes;
     pet_scop* pet;
+    std::string macros_str;
+    std::string wavefront_str;
     struct tc_options* options;
     void computeRelationUnion();
     void print_code_tc();

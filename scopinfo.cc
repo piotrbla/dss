@@ -75,6 +75,10 @@ void ScopInfo::print_code(std::string schedule_string)
         {
             isl_printf_str("\n//modified code:%s", codegen_macros_to_str(new_schedule, petScop));
             isl_printf_str("%s", codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_false));
+            std::string macros(codegen_macros_to_str(new_schedule, petScop));
+            std::string wavefront(codegen_wavefront_to_str(new_schedule, petScop, 0, isl_bool_false));
+            macros_str = macros;
+            wavefront_str = wavefront;
         }
         else
         {
