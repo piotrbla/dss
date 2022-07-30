@@ -163,6 +163,10 @@ void ScopInfo::computeRelationUnion() {
     dep_write_after_read = computeFlow(reads, writes, before);
     dep_write_after_write = computeFlow(writes, writes, before);
     relation = dep_read_after_write;
+    std::cout << "read_after_write\n()()()()()()()(): " << isl_union_map_to_str(dep_read_after_write) << "\n\n"; 
+    std::cout << "write_after_read\n()()()()()()()(): " << isl_union_map_to_str(dep_write_after_read) << "\n\n"; 
+    std::cout << "write_after_write\n()()()()()()()(): " << isl_union_map_to_str(dep_write_after_write) << "\n\n"; 
+
     //relation = dep_write_after_read;
     //    relation = isl_union_map_union(relation, dep_write_after_read);
     //   relation = isl_union_map_union(relation, dep_write_after_write);
