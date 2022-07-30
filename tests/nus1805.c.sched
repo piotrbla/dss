@@ -1,0 +1,1 @@
+{S_0[i, j, k] -> S_0[t=max(k-i, j-k-1)+1 ,-i,j,0,k]: t<= j-i; S_1[i,j]->S_1[t,-i, j, 1, 0] : exists k: (t=max(k-i, j-k-1)+1 and t=j-i)}
