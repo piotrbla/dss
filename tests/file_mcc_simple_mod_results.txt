@@ -1,0 +1,65 @@
+SCoP found in file: file_mcc_simple_mod.cc
+ Statement count: 2
+Statements bodies:
+read_after_write: [N, l] -> { S_0[i, j] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= -2 + N; S_1[i, j, k] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= 2147483647 + l + i and j <= -2 + N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j', k = -i + j] : i >= 0 and j > i and j' > l + j and j <= j' <= 2147483647 + l + i and j' < N; S_0[i, j] -> S_1[i', j' = 1 + j, k = -1 + i - i'] : j >= -1 + l + i and i < j <= -2 + N and i' >= 0 and -2147483646 - l + j <= i' < i; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j', k' = -i + j] : i >= 0 and j > i and 0 <= k < -l - i + j and j' > l + j and j < j' <= 2147483647 + l + i and j' < N; S_1[i, j, k] -> S_1[i', j' = 1 + j, k' = -1 + i - i'] : i < j <= -2 + N and 0 <= k < -l - i + j and i' >= 0 and -2147483646 - l + j <= i' < i }
+
+write_after_read: [N, l] -> { S_1[i, j, k] -> S_0[i' = i, j' = i + k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k > 0 and -i + j < k < -l - i + j and k < N - i; S_1[i, j, k] -> S_1[i' = i, j' = i + k, k'] : i >= 0 and j > i and -i + j < k < -l - i + j and k <= 2147483647 + l and k < N - i and 0 <= k' < -l + k; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j }
+
+write_after_write: [N, l] -> { S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j and k' > k and 0 <= k' < -l - i + j }
+
+SCoPInfo:
+Domain: [N, l] -> { S_1[i, j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] : i >= 0 and i < j < N }
+Schedule: [N, l] -> { S_1[i, j, k] -> [-i, j, 1, k]; S_0[i, j] -> [-i, j, 0, 0] }
+Relation: [N, l] -> { S_0[i, j] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= -2 + N; S_1[i, j, k] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= 2147483647 + l + i and j <= -2 + N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j', k = -i + j] : i >= 0 and j > i and j' > l + j and j <= j' <= 2147483647 + l + i and j' < N; S_0[i, j] -> S_1[i', j' = 1 + j, k = -1 + i - i'] : j >= -1 + l + i and i < j <= -2 + N and i' >= 0 and -2147483646 - l + j <= i' < i; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j', k' = -i + j] : i >= 0 and j > i and 0 <= k < -l - i + j and j' > l + j and j < j' <= 2147483647 + l + i and j' < N; S_1[i, j, k] -> S_1[i', j' = 1 + j, k' = -1 + i - i'] : i < j <= -2 + N and 0 <= k < -l - i + j and i' >= 0 and -2147483646 - l + j <= i' < i }
+Reads:  [N, l] -> { S_1[i, j, k] -> Q1[i, i + k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and -i <= k < -l - i + j; S_1[i, j, k] -> Q1[i, j] : i >= 0 and j > i and 0 <= j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_1[i, j, k] -> Q1[1 + i + k, -1 + j] : i >= 0 and j > i and 0 < j <= 2147483647 + l + i and j < N and k >= 0 and -1 - i <= k < -l - i + j; S_1[i, j, k] -> ERT[] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> Q1[i, -1 + j] : i >= 0 and j > i and 0 < j < N }
+Writes: [N, l] -> { S_1[i, j, k] -> Q1[i, j] : i >= 0 and j > i and 0 <= j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> Q1[i, j] : i >= 0 and j > i and 0 <= j < N }
+
+file_mcc_simple_mod.cc
+Tests1
+file_mcc_simple_mod.cc.sched
+{S_0[i, j, k] -> S_0[t=max(k-i, j-k-1)+1 ,-i,j,0,k]: t<= j-i; S_1[i,j]->S_1[t,-i, j, 1, 0] : exists k: (t=max(k-i, j-k-1)+1 and t=j-i)}
+
+#######################################################################
+
+#oryginal loop:
+
+#schedule:
+{ domain: "[N, l] -> { S_1[i, j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] : i >= 0 and i < j < N }", child: { schedule: "[N, l] -> L_0[{ S_1[i, j, k] -> [(-i)]; S_0[i, j] -> [(-i)] }]", child: { schedule: "[N, l] -> L_1[{ S_1[i, j, k] -> [(j)]; S_0[i, j] -> [(j)] }]", child: { sequence: [ { filter: "[N, l] -> { S_0[i, j] }" }, { filter: "[N, l] -> { S_1[i, j, k] }", child: { schedule: "[N, l] -> L_2[{ S_1[i, j, k] -> [(k)] }]" } } ] } } } }
+
+#domain:
+[N, l] -> { S_1[i, j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] : i >= 0 and i < j < N }
+
+#schedule map:
+[N, l] -> { S_1[i, j, k] -> [-i, j, 1, k]; S_0[i, j] -> [-i, j, 0, 0] }
+
+#isl schedule:
+{ domain: "[N, l] -> { S_1[i, j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] : i >= 0 and i < j < N }", child: { schedule: "[N, l] -> [{ S_1[i, j, k] -> [(-i)]; S_0[i, j] -> [(-i)] }, { S_1[i, j, k] -> [(j)]; S_0[i, j] -> [(j)] }]", permutable: 1, coincident: [ 1, 1 ], child: { schedule: "[N, l] -> [{ S_1[i, j, k] -> [(k)]; S_0[i, j] -> [(0)] }]", permutable: 1, coincident: [ 1 ], child: { sequence: [ { filter: "[N, l] -> { S_0[i, j] }" }, { filter: "[N, l] -> { S_1[i, j, k] }" } ] } } } }
+
+#isl schedule map:
+[N, l] -> { S_1[i, j, k] -> [-i, j, k, 1]; S_0[i, j] -> [-i, j, 0, 0] }
+
+#writes:
+[N, l] -> { S_1[i, j, k] -> Q1[i, j] : i >= 0 and j > i and 0 <= j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> Q1[i, j] : i >= 0 and j > i and 0 <= j < N }
+
+#reads:
+[N, l] -> { S_1[i, j, k] -> Q1[i, i + k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and -i <= k < -l - i + j; S_1[i, j, k] -> Q1[i, j] : i >= 0 and j > i and 0 <= j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_1[i, j, k] -> Q1[1 + i + k, -1 + j] : i >= 0 and j > i and 0 < j <= 2147483647 + l + i and j < N and k >= 0 and -1 - i <= k < -l - i + j; S_1[i, j, k] -> ERT[] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> Q1[i, -1 + j] : i >= 0 and j > i and 0 < j < N }
+
+#dep_raw:
+[N, l] -> { S_0[i, j] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= -2 + N; S_1[i, j, k] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= 2147483647 + l + i and j <= -2 + N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j', k = -i + j] : i >= 0 and j > i and j' > l + j and j <= j' <= 2147483647 + l + i and j' < N; S_0[i, j] -> S_1[i', j' = 1 + j, k = -1 + i - i'] : j >= -1 + l + i and i < j <= -2 + N and i' >= 0 and -2147483646 - l + j <= i' < i; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j', k' = -i + j] : i >= 0 and j > i and 0 <= k < -l - i + j and j' > l + j and j < j' <= 2147483647 + l + i and j' < N; S_1[i, j, k] -> S_1[i', j' = 1 + j, k' = -1 + i - i'] : i < j <= -2 + N and 0 <= k < -l - i + j and i' >= 0 and -2147483646 - l + j <= i' < i }
+
+#dep_waw:
+[N, l] -> { S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j }
+
+#dep_war:
+[N, l] -> { S_1[i, j, k] -> S_0[i' = i, j' = i + k] : i >= 0 and i < j <= 2147483647 + l + i and -i + j < k < -l - i + j and k < N - i; S_1[i, j, k] -> S_1[i' = i, j' = i + k, k'] : i >= 0 and j > i and -i + j < k < -l - i + j and k <= 2147483647 + l and k < N - i and 0 <= k' < -l + k; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j }
+
+#relations:
+[N, l] -> { S_0[i, j] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= -2 + N; S_1[i, j, k] -> S_0[i' = i, j' = 1 + j] : i >= 0 and i < j <= 2147483647 + l + i and j <= -2 + N and 0 <= k < -l - i + j; S_1[i, j, k] -> S_0[i' = i, j' = i + k] : i >= 0 and i < j <= 2147483647 + l + i and -i + j < k < -l - i + j and k < N - i; S_1[i, j, k] -> S_1[i' = i, j' = i + k, k'] : i >= 0 and j > i and -i + j < k < -l - i + j and k <= 2147483647 + l and k < N - i and 0 <= k' < -l + k; S_1[i, j, k] -> S_1[i' = i, j' = j, k'] : i >= 0 and i < j <= 2147483647 + l + i and j < N and k >= 0 and k < k' < -l - i + j; S_1[i, j, k] -> S_1[i' = i, j', k' = -i + j] : i >= 0 and j > i and 0 <= k < -l - i + j and j' > l + j and j < j' <= 2147483647 + l + i and j' < N; S_1[i, j, k] -> S_1[i', j' = 1 + j, k' = -1 + i - i'] : i < j <= -2 + N and 0 <= k < -l - i + j and i' >= 0 and -2147483646 - l + j <= i' < i; S_0[i, j] -> S_1[i' = i, j' = j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] -> S_1[i' = i, j', k = -i + j] : i >= 0 and j > i and j' > l + j and j <= j' <= 2147483647 + l + i and j' < N; S_0[i, j] -> S_1[i', j' = 1 + j, k = -1 + i - i'] : j >= -1 + l + i and i < j <= -2 + N and i' >= 0 and -2147483646 - l + j <= i' < i }
+
+#delta:
+{ [i, j = 1, k] : i < 0 and -2147483646 - 2i <= k < -i; [i = 0, j, k] : 0 < j <= 2147483646 and k >= -2147483646 + j and ((j <= 1073741822 and k <= 2147483645 - j) or (-2147483645 + j <= k <= 2147483646)); [i = 0, j = 0, k] : 0 < k <= 2147483646; [i = 0, j = 1] }
+
+#######################################################################
+Schedule before: { S_1[i, j] -> S_1[t = -i + j, -i, j, 1, 0] : j > i; S_0[i, j, k] -> S_0[t = 1 - i + k, -i, j, 0, k] : k < j and 2k >= -1 + i + j; S_0[i, j, k] -> S_0[t = j - k, -i, j, 0, k] : k >= i and 2k <= -2 + i + j }
+Schedule * LDom: [N, l] -> {  }
+Domain: [N, l] -> { S_1[i, j, k] : i >= 0 and i < j <= 2147483647 + l + i and j < N and 0 <= k < -l - i + j; S_0[i, j] : i >= 0 and i < j < N }
